@@ -1,0 +1,20 @@
+{
+<<<<<<< HEAD
+    "python.analysis.extraPaths": [
+        "."
+    ]
+=======
+    // 1. Tells Pylance to look inside the 'app' folder for modules like 'data' and 'services'.
+    "python.analysis.extraPaths": [
+        "./app"
+    ],
+
+    // 2. Ensures the interpreter is correctly found (assuming you use a virtual environment named 'venv').
+    "python.defaultInterpreterPath": "./venv/Scripts/python.exe", 
+
+    // 3. Manually suppresses the pandas error if the library is installed but Pylance doesn't see it.
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none" // Suppresses the pandas "could not be resolved from source" warning
+    }
+>>>>>>> 3c9147c359203b49e5beea372354beee3adda199
+}

@@ -1,10 +1,10 @@
 import bcrypt
 import os
 
-# --- Configuration ---
+
 USER_DATA_FILE = "users.txt"
 
-# --- Security Functions ---
+
 
 def hash_password(plain_text_password):
     """
@@ -32,11 +32,10 @@ def verify_password(plain_text_password, hashed_password):
     password_bytes = plain_text_password.encode('utf-8')
     hash_bytes = hashed_password.encode('utf-8')
     
-    # TODO: Use bcrypt.checkpw() to verify the password
-    # This function extracts the salt from the hash and compares
+   
     return bcrypt.checkpw(password_bytes, hash_bytes)
     
-# --- User Management Functions ---
+
 
 def user_exists(username):
     """
@@ -51,9 +50,9 @@ def user_exists(username):
     # Read the file and check each line for the username
     with open(USER_DATA_FILE, "r") as f:
         for line in f.readlines():
-            line = line.strip() # Clean the line (remove newline and whitespace)
+            line = line.strip() 
             
-            # CRITICAL FIX: Ensure the line is not empty AND contains the separator
+            
             if line and ',' in line:
                 try:
                     # Safely unpack the values
@@ -61,7 +60,7 @@ def user_exists(username):
                     if user == username:
                         return True
                 except ValueError:
-                    # Optionally log the malformed line, but skip it
+                    
                     continue
             
     return False
@@ -78,8 +77,7 @@ def register_user(username, password):
     # Hash the password
     hashed = hash_password(password) 
     
-    # Append the new user to the file
-    # Format: username,hashed_password
+
     with open(USER_DATA_FILE, "a") as f:
         f.write(f"{username},{hashed}\n")
     
@@ -102,21 +100,18 @@ def login_user(username, password):
         for line in f.readlines():
             line = line.strip()
             
-            # CRITICAL FIX: Ensure the line is not empty AND contains the separator
+           
             if not (line and ',' in line):
-                continue # Skip this line if it's empty or malformed
+                continue 
             
             try:
                 # Safely unpack the values
                 user, hash_data = line.split(',', 1)
             except ValueError:
-                # Optionally log the malformed line, but skip it
+               
                 continue
                 
-            # Note: strip is often unnecessary here if line.strip() was done above,
-            # but is harmless if you want to be extra safe against internal whitespace.
-            # user = user.strip() 
-            # hash_data = hash_data.strip()
+   
 
             # If username matches, verify the password
             if user == username:

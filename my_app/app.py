@@ -47,7 +47,7 @@ if st.session_state.logged_in:
     
     with col1:
         if st.button("Go to dashboard"):
-            st.switch_page("Pages/1_Dashboard.py")  # Switch to your unprotected dashboard
+            st.switch_page("Pages/1_Dashboard.py")  
     with col2:
         if st.button("Logout"):
             st.session_state.logged_in = False
